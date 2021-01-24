@@ -1,0 +1,44 @@
+﻿@page
+@model USMS.Pages.Lessons.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Lesson</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="Lesson.LessonID" class="control-label"></label>
+                <input asp-for="Lesson.LessonID" class="form-control" />
+                <span asp-validation-for="Lesson.LessonID" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Lesson.Title" class="control-label"></label>
+                <input asp-for="Lesson.Title" class="form-control" />
+                <span asp-validation-for="Lesson.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lesson.Credit" class="control-label"></label>
+                <input asp-for="Lesson.Credit" class="form-control" />
+                <span asp-validation-for="Lesson.Credit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a style="color: black" asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

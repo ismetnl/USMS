@@ -1,0 +1,167 @@
+﻿@page
+@model USMS.Pages.Students.IndexModel
+
+@{
+    ViewData["Title"] = "Students";
+}
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" data-toggle="tooltip" title="University Student Management System" asp-area="" asp-page="/Home/Index">
+                USMS
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Departments/Index">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Instructors/Index">Instructors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Lessons/Index">Lessons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/LessonAssigments/Index">LessonAssigments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Students/Index">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Enrollments/Index">Enrollments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Internships/Index">Internships</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse flex-grow-0">
+                <ul class="navbar-nav text-right">
+                    <li class="nav-item active">
+                        <a asp-area="" asp-page="/Index">
+                            <img class="hidden-xs" src="~/images/logout.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<h2>Students</h2>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        body{
+            color:white;
+        }
+        a {
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+
+    <form asp-page="./Index" method="get">
+        <div class="form-actions no-color">
+
+            <p>
+                Find by name:
+                <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+                <input type="submit" value="Search" class="btn btn-primary" /> |
+                <a asp-page="./Index">Back to full List</a>
+            </p>
+        </div>
+
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort"
+                       asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Student[0].LastName)
+                    </a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student[0].FirstName)
+                </th>
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
+                       asp-route-currentFilter="@Model.CurrentFilter">
+                        @Html.DisplayNameFor(model => model.Student[0].EnrollmentDate)
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Student)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</body>
+@{
+    var prevDisabled = !Model.Student.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Student.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Student.PageIndex - 1)"
+   asp-route-current="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Student.PageIndex + 1)"
+   asp-route-current="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

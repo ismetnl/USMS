@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!--<div class="text-center">-->
+@*<h1 class="display-4">University Student Management System</h1>*@
+<!--</div>-->
+@*<h3>Login Form</h3>*@
+
+
+        <head>
+
+            <link rel="stylesheet" href="~/css/Login.css" />
+        </head>
+
+        <body> 
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <div class="fadeIn first" style=" width: 300px; height: 300px; margin-left: auto; margin-right: auto;">
+                        <img src="~/images/user.png" id="icon" alt="User Icon" />
+                    </div>
+                    <form method="post" asp-page="Index">
+                        <table align="center">
+                            <tr> 
+                                <td><input type="text" placeholder="Username" asp-for="@Model.Username" /></td>
+                            </tr>
+                            <tr> 
+                                <td><input type="password" placeholder="Password" asp-for="@Model.Password" /></td>
+                            </tr>
+                            <tr> 
+                                <td><input type="submit" value="Login" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </body>

@@ -1,0 +1,144 @@
+﻿@page
+@model USMS.Pages.Enrollments.IndexModel
+
+@{
+    ViewData["Title"] = "Enrollment";
+}
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" data-toggle="tooltip" title="University Student Management System" asp-area="" asp-page="/Home/Index">
+                USMS
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Departments/Index">Departments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Instructors/Index">Instructors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Lessons/Index">Lessons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/LessonAssigments/Index">LessonAssigments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Students/Index">Students</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Enrollments/Index">Enrollments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Internships/Index">Internships</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse flex-grow-0">
+                <ul class="navbar-nav text-right">
+                    <li class="nav-item active">
+                        <a asp-area="" asp-page="/Index">
+                            <img class="hidden-xs" src="~/images/logout.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            color: white
+        }
+
+        td, th {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        a {
+            color: black
+        }
+        h1{
+            color: white
+        }
+    </style>
+
+</head>
+
+<h1>Enrollments</h1>
+<body>
+
+
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Lesson</th>
+                <th>Student</th>
+                <th>Midterm</th>
+                <th>Final</th>
+                <th>Grade</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Enrollment)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lesson.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.midterm)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.final)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.grade)
+                        (
+                        @if (item.grade == "FF")
+                        {
+                            <b style="color:red">Kaldı</b>
+                        }
+                        @if (item.grade != "FF" && item.grade != null)
+                        {
+                            <b style="color:forestgreen">Geçti</b>
+                        }
+                        else
+                        {
+                            <b>Girilmedi</b>
+                        }
+                        )
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.EnrollmentID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.EnrollmentID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.EnrollmentID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
